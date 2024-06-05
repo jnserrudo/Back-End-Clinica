@@ -1,56 +1,51 @@
-//utilizamos require porque por ahora estamos usando commonjs
-import express, { json } from 'express' //require -->commonJS
+// Importamos las dependencias
+import express, { json } from 'express';
+import cors from 'cors';
+import { router } from './src/routes/main.js';
 
+// Configuración de la aplicación
+const app = express();
+app.disable('x-powered-by');
 
-import { validateMovie, validatePartialMovie } from './src/schemas/movies.js'
-import zod from 'zod'
-
-//express tiene una biblioteca nativa , que ademas es parte de la plataforma web
-//que  ya te pérmite crear ids unicas
-import { randomUUID } from 'node:crypto'
-import { error } from 'node:console'
-import { moviesRouter } from './src/routes/movies.js'
-
-export const getRandomInt=(max)=> {
-    return Math.floor(Math.random() * max);
-  }
-  
-const app=express()
-
-app.disable('x-powered-by')
-app.use((req,res,next)=>{
-    console.log("app.json: "+app.json)
-    next()
-})
-app.use(json())//con este middleware podemos acceder a los body de los request
-
-console.log("desde app.js"+process.env.API_URL)
-/* 
-app.get( '/',(req,res)=>{
-    let obj={
-        message:'Hola mundo'
-    }
-    res.json(obj)
-})
- */
-
-export const ACCEPTED_ORIGINS=[
+// Middleware para registrar los orígenes aceptados
+const ACCEPTED_ORIGINS = [
     'http://localhost:8080',
     'http://localhost:1234',
     'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
     'http://moviesdea.com',
     'http://jnsix.com'
+];
 
-]
+// Configuración del middleware CORS
+app.use(cors({
+    origin: (origin, callback) => {
+        // Permite solicitudes sin origen (por ejemplo, aplicaciones móviles)
+        if (!origin) return callback(null, true);
+        if (ACCEPTED_ORIGINS.indexOf(origin) !== -1) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('No permitido por CORS'));
+        }
+    }
+}));
 
-//Todos los recursos que sean MOVIES  se identifican con /movies
-// se tiene una url que identifica a este recurso
+// Middleware para analizar JSON
+app.use(json());
 
+// Rutas de la aplicación
+app.use('/api', router);
 
-//AHORA LO QUE ESTAMOS HACIENDO ES SEPARAR TODAS LAS RUTAS QUE TIENEN QUE VER CON /movies
-//entonces lo que hara la aplicacion de express es: cuando se detecte que hay un /movies
-//me voy al moviesRouter
-app.use('/movies',moviesRouter)
+// Manejo de errores CORS
+app.use((err, req, res, next) => {
+    if (err) {
+        console.error(err.message);
+        res.status(403).send('No permitido por CORS');
+    } else {
+        next();
+    }
+});
 
 const PORT= process.env.PORT??1234
 
