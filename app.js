@@ -15,6 +15,7 @@ const ACCEPTED_ORIGINS = [
     'http://localhost:5174',
     'http://localhost:5175',
     'http://moviesdea.com',
+    'https://front-end-clinica.onrender.com',
     'http://jnsix.com'
 ];
 
