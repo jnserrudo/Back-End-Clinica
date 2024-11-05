@@ -27,6 +27,8 @@ export class PacienteModel{
                     dni:dni
                 }
         }) 
+        console.log(paciente)
+
         return paciente
         } catch (error) {
             return {

@@ -4,15 +4,17 @@ export class PacienteController{
     static getAll=async(req,res)=>{
 
         const pacientes=await PacienteModel.getAll()
+        //console.log("respuesta de get all pacientes: ",pacientes)
         if(!pacientes?.err){
             res.json(pacientes)
         }else{
-            res.json({message:"Paciente no encontrado"}).status(404)
+            res.json({message:"Paciente no encontrado",error:pacientes?.err}).status(404)
         }
     }
 
     static getPacientebyDni=async(req,res)=>{
         let dni=req.params.dni
+        console.log("getPacientebyDni",dni)
         const paciente=await PacienteModel.getPacientebyDni(dni)
         if(!paciente?.error){
             res.json(paciente)
@@ -33,6 +35,9 @@ export class PacienteController{
 
     static addPaciente=async(req,res)=>{
         const newPaciente=await PacienteModel.addPaciente(req.body)
+
+        console.log("nuevo paciente : ",newPaciente)
+
         if(!newPaciente?.error){
             res.json(newPaciente)
         }else{

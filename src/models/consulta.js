@@ -7,7 +7,7 @@ export class ConsultaModel{
         try {
             
             const consultas=await prisma.consulta.findMany()
-            console.log(consultas)
+            //console.log(consultas)
             return consultas??null
         } catch (error) {
             return {
@@ -34,9 +34,10 @@ export class ConsultaModel{
     
             const consulta={
                 consultas:consul,
-                apen:paciente.nombre.toUpperCase() +', '+paciente.apellido.toUpperCase()
+                apen:paciente.nombre.toUpperCase() +', '+paciente.apellido.toUpperCase(),
+                paciente:paciente
             }
-            console.log(consul,paciente)
+            console.log("consultas - paciente ",consulta)
             return consulta
         } catch (error) {
             return {

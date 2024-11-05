@@ -13,6 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
+// Definición del modelo de Usuarios
+model Usuario {
+  id             Int                    @id @default(autoincrement())
+  usuario        String                 @default("")
+  email          String                 @default("")
+  blanqueado     Int                    @default(0)
+  password       String // Aquí almacenamos la contraseña, que debería ser encriptada en el backend
+  habilitado     Int                    @default(1)
+}
+
+
 model Paciente{
   nombre String
   apellido String
