@@ -40,6 +40,8 @@ export class PacienteModel{
 
     static updatePaciente=async(dni,pacienteUpdated)=>{
         try {
+            pacienteUpdated.celular=pacienteUpdated.celular.toString()
+
             const paciente=await prisma.paciente.update({
                 where:{
                     dni:+dni
@@ -57,6 +59,7 @@ export class PacienteModel{
 
     static addPaciente=async(dataPaciente)=>{
         try {
+            dataPaciente.celular=dataPaciente.celular.toString()
             const newPaciente=await prisma.paciente.create({
                 data:dataPaciente
             })
