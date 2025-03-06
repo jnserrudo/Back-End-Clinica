@@ -40,3 +40,12 @@ DEL USUARIO
 LA VISTA = > PODEMOS ENVIAR LA ACCIONES QUE QUEREMOS HACER , ASI QUE SERIA LA INTERFAZ DEL USUARIO
 
 NUNCA LA VISTA VA A TENER ACCESO DE MANERA DIRECTA CON EL MODELO, SIMPRE TIENEN ESTE TIPO DE CONEXION CON EL CONTROLADOR ANTES 
+
+
+
+
+
+ante cualquier cambio del esquema prisma (es asi porque se puede con la bd de mysql):
+1-npx prisma db push
+
+2-npx prisma generate
