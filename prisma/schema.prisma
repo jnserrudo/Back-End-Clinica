@@ -29,15 +29,15 @@ model Paciente{
   nombre String
   apellido String
   dni Int @id 
-  domicilio String
+  domicilio String @db.Text
   obraSocial String
-  plan String
+  plan String?
   nroAfiliado Int
-  celular Int
-  vacunas String?
-  app String?
-  afp String?
-  alergias String?
+  celular String
+  vacunas String? @db.Text 
+  app String? @db.Text
+  afp String? @db.Text
+  alergias String? @db.Text
   consultas Consulta[]
 
 }
@@ -46,11 +46,11 @@ model Paciente{
 model Consulta{
   id Int @id @default(autoincrement())
   fecha DateTime
-  motivo String
-  diagnostico String?
-  evolucion String
+  motivo String @db.Text
+  diagnostico String? @db.Text
+  evolucion String @db.Text
   tipo String
-  tratamiento String
+  tratamiento String @db.Text
   pacienteDni Int
   paciente Paciente @relation( fields:[pacienteDni],references:[dni] )
   createdAt DateTime @default(now()) // esto es simplemente es un agregado para esta consulta, pero deberia coincidir con el valor del campo fecha
