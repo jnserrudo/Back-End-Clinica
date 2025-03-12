@@ -32,7 +32,7 @@ model Paciente{
   domicilio String @db.Text
   obraSocial String
   plan String?
-  nroAfiliado Int
+  nroAfiliado String
   celular String
   vacunas String? @db.Text 
   app String? @db.Text
