@@ -40,6 +40,11 @@ model Paciente{
   alergias String? @db.Text
   consultas Consulta[]
 
+  fechaNacimiento DateTime? // Nuevo campo, opcional para evitar problemas con registros existentes
+  nombrePrimerTutor  String? @db.Text  // Nuevo campo opcional
+  dniPrimerTutor     String? @db.Text  // Nuevo campo opcional
+  nombreSegundoTutor String? @db.Text  // Nuevo campo opcional
+  dniSegundoTutor    String? @db.Text  // Nuevo campo opcional
 }
 //fijarme si puedo usar algunos enums, como el tipo en la consulta o su motivo
 
@@ -52,7 +57,7 @@ model Consulta{
   tipo String
   tratamiento String @db.Text
   pacienteDni Int
-  paciente Paciente @relation( fields:[pacienteDni],references:[dni] )
+  paciente Paciente @relation( fields:[pacienteDni],references:[dni], onDelete: Cascade )
   createdAt DateTime @default(now()) // esto es simplemente es un agregado para esta consulta, pero deberia coincidir con el valor del campo fecha
 
 }

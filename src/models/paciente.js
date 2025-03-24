@@ -49,6 +49,13 @@ export class PacienteModel{
                 pacienteUpdated.nroAfiliado=pacienteUpdated.nroAfiliado.toString()
             }
 
+            if(pacienteUpdated?.dniPrimerTutor){
+                pacienteUpdated.dniPrimerTutor=pacienteUpdated.dniPrimerTutor.toString()
+            }
+            if(pacienteUpdated?.dniSegundoTutor){
+                pacienteUpdated.dniSegundoTutor=pacienteUpdated.dniSegundoTutor.toString()
+            }
+
             const paciente=await prisma.paciente.update({
                 where:{
                     dni:+dni
@@ -68,6 +75,12 @@ export class PacienteModel{
         try {
             dataPaciente.celular=dataPaciente.celular.toString()
             dataPaciente.nroAfiliado=dataPaciente.nroAfiliado.toString()
+            if(dataPaciente?.dniPrimerTutor){
+                dataPaciente.dniPrimerTutor=dataPaciente.dniPrimerTutor.toString()
+            }
+            if(dataPaciente?.dniSegundoTutor){
+                dataPaciente.dniSegundoTutor=dataPaciente.dniSegundoTutor.toString()
+            }
             const newPaciente=await prisma.paciente.create({
                 data:dataPaciente
             })
@@ -76,7 +89,7 @@ export class PacienteModel{
 
         } catch (error) {
             return {
-                err:error
+                error:error
             }
         }
         
